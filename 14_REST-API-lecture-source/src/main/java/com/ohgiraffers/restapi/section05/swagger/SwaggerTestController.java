@@ -75,6 +75,11 @@ public class SwaggerTestController {
     @GetMapping("/users/{userNo}")
     public ResponseEntity<ResponseMessage> findUserByNo(@PathVariable int userNo) {
 
+        /*
+        * 헤더가 꼭 필요하지 않은 간단한 응답에서는 굳이 헤더를 설정할 필요가 없다.
+        * 클라이언트에게 추가 정보를 전달해야하거나, 특정 헤더가 요구되는 경우메만 명시적으로 헤더를 설정해도 된다.
+        * */
+
         // Header
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(
@@ -113,7 +118,6 @@ public class SwaggerTestController {
 
         // 유저 추가
         users.add(newUser);
-
 
         return ResponseEntity
                 // restfull
