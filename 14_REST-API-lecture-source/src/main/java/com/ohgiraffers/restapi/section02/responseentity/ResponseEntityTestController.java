@@ -112,6 +112,23 @@ public class ResponseEntityTestController {
                 .build();
     }
 
+    @PostMapping("/users")    // 등록시엔 Post 사용
+    public ResponseEntity<?> register(@RequestBody UserDTO newUser) {
+        int lastUserNo = users.get(users.size() - 1).getNo();
+        newUser.setNo(lastUserNo + 1);
+        users.add(newUser);
+
+        // service에서 결과만 넘겨주기
+        String successMsg = "회원 등록에 성공하였습니다.";
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("result", successMsg);
+
+        return ResponseEntity
+                .ok()
+                .body(new ResponseMessage(201, "회원 추가 성공", responseMap));
+    }
+
     // 수정
     @PutMapping("/users/{userNo}")
     public ResponseEntity<?> modifyUser(@PathVariable int userNo, @RequestBody UserDTO modifyInfo) {
